@@ -26,5 +26,6 @@ I don't expect every task to be completed in the time allotted. Play to your str
 - Replace the blue color within the app with the correct one in the mockup
 - Categories should display as a row instead of a column when entered.
 - Make the quote container look more like the mockup
+- Make the category input field look more like the mockup
 - Don't allow duplicate categories to be entered
 - The overall architecture of the app leaves a lot to be desired. How could it be rearchitected so that the codebase will scale as we add more features?
