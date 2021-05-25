@@ -6,7 +6,7 @@ Get a Quote is far from complete though. Your task is to work on the tasks below
 
 # Technologies
 
-Get a Quote uses [Flutter](https://flutter.dev/) which is a cross-platform UI toolkit.
+Get a Quote uses [Flutter](https://flutter.dev/) which is a cross-platform UI toolkit written in the [Dart](https://dart.dev/) programming language.
 
 The project is also using the [quotable.io](https://quotable.io) API to generate its quotes. Here is an example request: https://api.quotable.io/random?tags=history  
 
