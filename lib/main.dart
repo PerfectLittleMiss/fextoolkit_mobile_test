@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'objects/category.dart';
+import 'objects/quote.dart';
+
 void main() {
   runApp(QuoteApp());
 }
@@ -21,7 +24,7 @@ class QuoteApp extends StatelessWidget {
 
 class GetQuote extends StatefulWidget {
   _GetQuote createState() => _GetQuote();
-} 
+}
 
 class _GetQuote extends State<GetQuote> {
   String quote = "";
@@ -38,55 +41,27 @@ class _GetQuote extends State<GetQuote> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget> [
+          children: <Widget>[
             Column(
-              children: <Widget> [
-                Categories(), 
+              children: <Widget>[
+                Categories(),
                 SizedBox(height: MediaQuery.of(context).size.height * .05),
                 this.quote != "" ? Quote(this.quote, this.author) : SizedBox(),
               ],
             ),
-            GetQuoteButton(
-              onTap: () async {
-                final resp = await http.get(Uri.parse("https://api.quotable.io/random?tag=learning,motivation"));
+            GetQuoteButton(onTap: () async {
+              final resp = await http.get(Uri.parse(
+                  "https://api.quotable.io/random?tag=learning,motivation"));
 
-                final Map<String, dynamic> json = jsonDecode(resp.body);
+              final Map<String, dynamic> json = jsonDecode(resp.body);
 
-                setState(() {
-                  this.quote = json['content'];
-                  this.author = json['author']; 
-                });
-              }     
-            ),
+              setState(() {
+                this.quote = json['content'];
+                this.author = json['author'];
+              });
+            }),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class Quote extends StatelessWidget {
-  final String quote;
-  final String author;
-
-  Quote(this.quote, this.author); 
-
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.blue),
-        borderRadius: BorderRadius.all(Radius.circular(3)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,   
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget> [
-          Text(this.quote, style: TextStyle(fontSize: 24), textAlign: TextAlign.center),
-          SizedBox(height: 30),
-          Text("- ${this.author}"), 
-        ],
       ),
     );
   }
@@ -95,7 +70,7 @@ class Quote extends StatelessWidget {
 class GetQuoteButton extends StatelessWidget {
   final Function()? onTap;
 
-  GetQuoteButton({ this.onTap });
+  GetQuoteButton({this.onTap});
 
   Widget build(BuildContext context) {
     return InkWell(
@@ -109,10 +84,12 @@ class GetQuoteButton extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget> [
+          children: <Widget>[
             Image.asset("images/new_quote.png", width: 18),
             SizedBox(width: 10),
-            Text("New Quote", style: TextStyle(fontSize: 14, color: Colors.white), textAlign: TextAlign.center),
+            Text("New Quote",
+                style: TextStyle(fontSize: 14, color: Colors.white),
+                textAlign: TextAlign.center),
           ],
         ),
       ),
@@ -123,7 +100,7 @@ class GetQuoteButton extends StatelessWidget {
 class PlusButton extends StatelessWidget {
   final Function()? onTap;
 
-  PlusButton({ this.onTap });
+  PlusButton({this.onTap});
 
   Widget build(BuildContext context) {
     return InkWell(
@@ -134,51 +111,29 @@ class PlusButton extends StatelessWidget {
         margin: EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
           color: Colors.blue,
-          borderRadius: BorderRadius.all(Radius.circular(5)), 
+          borderRadius: BorderRadius.all(Radius.circular(5)),
         ),
         child: Align(
-          child: Text("+", style: TextStyle(fontSize: 25, color: Colors.white,),),
+          child: Text(
+            "+",
+            style: TextStyle(
+              fontSize: 25,
+              color: Colors.white,
+            ),
+          ),
         ),
       ),
     );
   }
 }
 
-class Category extends StatelessWidget {
-  final String categoryName;
-  final double _fontSize = 14;
-  final Function()? onRemove;
-
-  Category(this.categoryName, { this.onRemove });
-
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue,
-      margin: EdgeInsets.only(top: 10, right: 10),
-      padding: EdgeInsets.all(5),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget> [
-          Text(this.categoryName, style: TextStyle(color: Colors.white, fontSize: _fontSize),), 
-          SizedBox(width: 15),
-          InkWell(
-            onTap: this.onRemove,
-            child: Image.asset("images/remove.png", width: 14),
-          ),
-        ],
-      ),
-    ); 
-  }
-}
-
 class Categories extends StatefulWidget {
-  _CategoriesState createState() => _CategoriesState(); 
+  _CategoriesState createState() => _CategoriesState();
 }
 
 class _CategoriesState extends State<Categories> {
   final List<String> _categories = [];
-  final _categoryController = TextEditingController(); 
+  final _categoryController = TextEditingController();
 
   List<Widget> get categories {
     return _categories.map((category) {
@@ -186,9 +141,9 @@ class _CategoriesState extends State<Categories> {
         setState(() {
           _categories.removeWhere((value) => value == category);
         });
-      }); 
+      });
     }).toList();
-  } 
+  }
 
   Widget build(BuildContext context) {
     return Container(
@@ -196,39 +151,36 @@ class _CategoriesState extends State<Categories> {
       width: MediaQuery.of(context).size.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget> [
+        children: <Widget>[
           Container(
             width: MediaQuery.of(context).size.width,
             height: 50,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget> [
+              children: <Widget>[
                 Flexible(
                   child: TextField(
                     controller: _categoryController,
                     decoration: InputDecoration(
                       labelText: "Category",
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey), 
+                        borderSide: BorderSide(color: Colors.grey),
                       ),
-                    ),     
+                    ),
                   ),
                 ),
-                PlusButton(
-                  onTap: () {
-                    setState(() {
-                      _categories.add(_categoryController.text);
-                    });
-                  }     
-                ),
+                PlusButton(onTap: () {
+                  setState(() {
+                    _categories.add(_categoryController.text);
+                  });
+                }),
               ],
             ),
           ),
-
-          ...this.categories, 
+          ...this.categories,
         ],
       ),
-    ); 
+    );
   }
 }
