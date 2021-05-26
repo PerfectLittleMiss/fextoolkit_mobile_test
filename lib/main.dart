@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'custom_widgets/get_quote_button.dart';
+import 'custom_widgets/plus_button.dart';
 import 'objects/category.dart';
 import 'objects/quote.dart';
 
@@ -61,66 +63,6 @@ class _GetQuote extends State<GetQuote> {
               });
             }),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class GetQuoteButton extends StatelessWidget {
-  final Function()? onTap;
-
-  GetQuoteButton({this.onTap});
-
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: this.onTap,
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.6,
-        padding: EdgeInsets.only(top: 15, bottom: 15, left: 15, right: 15),
-        decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.all(Radius.circular(3)),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset("images/new_quote.png", width: 18),
-            SizedBox(width: 10),
-            Text("New Quote",
-                style: TextStyle(fontSize: 14, color: Colors.white),
-                textAlign: TextAlign.center),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class PlusButton extends StatelessWidget {
-  final Function()? onTap;
-
-  PlusButton({this.onTap});
-
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: this.onTap,
-      child: Container(
-        width: 50,
-        height: 50,
-        margin: EdgeInsets.only(left: 10),
-        decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-        ),
-        child: Align(
-          child: Text(
-            "+",
-            style: TextStyle(
-              fontSize: 25,
-              color: Colors.white,
-            ),
-          ),
         ),
       ),
     );
