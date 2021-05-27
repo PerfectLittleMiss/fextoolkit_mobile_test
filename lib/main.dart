@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:fextoolkit_mobile_test/uri_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -52,14 +53,20 @@ class _GetQuote extends State<GetQuote> {
               ],
             ),
             GetQuoteButton(onTap: () async {
-              final resp = await http.get(Uri.parse(
-                  "https://api.quotable.io/random?tag=learning,motivation"));
+              final resp = await http.get(Uri.parse(UriHelper.getUri()));
+
+              //print(UriHelper.getUri());
 
               final Map<String, dynamic> json = jsonDecode(resp.body);
 
               setState(() {
-                this.quote = json['content'];
-                this.author = json['author'];
+                if (json['statusCode'] == 404) {
+                  this.quote = json['statusMessage'];
+                  this.author = "Quotable";
+                } else {
+                  this.quote = json['content'];
+                  this.author = json['author'];
+                }
               });
             }),
           ],
@@ -114,15 +121,18 @@ class _CategoriesState extends State<Categories> {
                 ),
                 PlusButton(onTap: () {
                   // Don't allow duplicate categories to be entered
-                  if (_categories
-                      .contains(_categoryController.text.toUpperCase())) {
+                  if (_categories.contains(
+                      _categoryController.text.toLowerCase().trim())) {
                     // Notify the user the category has already been added
                     final snackBar = SnackBar(
                         content: Text("That category has already been added"));
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   } else {
                     setState(() {
-                      _categories.add(_categoryController.text.toUpperCase());
+                      _categories
+                          .add(_categoryController.text.toLowerCase().trim());
+
+                      UriHelper.updateCategories(_categories);
                     });
                   }
                 }),
