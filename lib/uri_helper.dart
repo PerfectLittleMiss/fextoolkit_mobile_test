@@ -16,7 +16,7 @@ class UriHelper {
         if (category.contains(' ')) {
           category = category.replaceAll(' ', '-');
         }
-        finalUri = finalUri + category + ',';
+        finalUri = finalUri + category.toLowerCase() + ',';
       }
       finalUri = finalUri.substring(0, finalUri.length - 1);
     }

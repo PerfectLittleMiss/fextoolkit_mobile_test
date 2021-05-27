@@ -126,7 +126,8 @@ class _CategoriesState extends State<Categories> {
               ],
             ),
           ),
-          ...this.categories,
+          Row(children: this.categories)
+          //...this.categories,
         ],
       ),
     );
@@ -134,14 +135,14 @@ class _CategoriesState extends State<Categories> {
 
   void addCategory() {
     // Don't allow duplicate categories to be entered
-    if (_categories.contains(_categoryController.text.toLowerCase().trim())) {
+    if (_categories.contains(_categoryController.text.toUpperCase().trim())) {
       // Notify the user the category has already been added
       final snackBar =
           SnackBar(content: Text("That category has already been added"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
       setState(() {
-        _categories.add(_categoryController.text.toLowerCase().trim());
+        _categories.add(_categoryController.text.toUpperCase().trim());
 
         UriHelper.updateCategories(_categories);
       });
