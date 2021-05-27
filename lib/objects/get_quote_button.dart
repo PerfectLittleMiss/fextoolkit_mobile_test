@@ -1,3 +1,4 @@
+import 'package:fextoolkit_mobile_test/styles.dart';
 import 'package:flutter/material.dart';
 
 class GetQuoteButton extends StatelessWidget {
@@ -12,7 +13,7 @@ class GetQuoteButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.6,
         padding: EdgeInsets.only(top: 15, bottom: 15, left: 15, right: 15),
         decoration: BoxDecoration(
-          color: Colors.blue,
+          color: Styles.primaryColor,
           borderRadius: BorderRadius.all(Radius.circular(3)),
         ),
         child: Row(

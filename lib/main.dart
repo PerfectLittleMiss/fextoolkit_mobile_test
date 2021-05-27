@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'package:fextoolkit_mobile_test/styles.dart';
 import 'package:fextoolkit_mobile_test/uri_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'custom_widgets/get_quote_button.dart';
-import 'custom_widgets/plus_button.dart';
+import 'objects/get_quote_button.dart';
+import 'objects/plus_button.dart';
 import 'objects/category.dart';
 import 'objects/quote.dart';
 
@@ -18,7 +19,7 @@ class QuoteApp extends StatelessWidget {
     return MaterialApp(
       title: 'Quote App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Styles.materialColor,
       ),
       home: GetQuote(),
     );
@@ -37,7 +38,7 @@ class _GetQuote extends State<GetQuote> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Get a Quote'),
-        backgroundColor: Colors.blue,
+        backgroundColor: Styles.primaryColor,
       ),
       body: Container(
         margin: EdgeInsets.only(top: 10, bottom: 30, left: 10, right: 10),
@@ -120,21 +121,7 @@ class _CategoriesState extends State<Categories> {
                   ),
                 ),
                 PlusButton(onTap: () {
-                  // Don't allow duplicate categories to be entered
-                  if (_categories.contains(
-                      _categoryController.text.toLowerCase().trim())) {
-                    // Notify the user the category has already been added
-                    final snackBar = SnackBar(
-                        content: Text("That category has already been added"));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  } else {
-                    setState(() {
-                      _categories
-                          .add(_categoryController.text.toLowerCase().trim());
-
-                      UriHelper.updateCategories(_categories);
-                    });
-                  }
+                  addCategory();
                 }),
               ],
             ),
@@ -143,5 +130,21 @@ class _CategoriesState extends State<Categories> {
         ],
       ),
     );
+  }
+
+  void addCategory() {
+    // Don't allow duplicate categories to be entered
+    if (_categories.contains(_categoryController.text.toLowerCase().trim())) {
+      // Notify the user the category has already been added
+      final snackBar =
+          SnackBar(content: Text("That category has already been added"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      setState(() {
+        _categories.add(_categoryController.text.toLowerCase().trim());
+
+        UriHelper.updateCategories(_categories);
+      });
+    }
   }
 }

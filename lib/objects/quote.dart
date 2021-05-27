@@ -1,3 +1,4 @@
+import 'package:fextoolkit_mobile_test/styles.dart';
 import 'package:flutter/material.dart';
 
 class Quote extends StatelessWidget {
@@ -11,7 +12,7 @@ class Quote extends StatelessWidget {
       padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.blue),
+        border: Border.all(color: Styles.primaryColor),
         borderRadius: BorderRadius.all(Radius.circular(3)),
       ),
       child: Column(

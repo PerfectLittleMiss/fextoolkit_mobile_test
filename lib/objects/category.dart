@@ -1,3 +1,4 @@
+import 'package:fextoolkit_mobile_test/styles.dart';
 import 'package:flutter/material.dart';
 
 class Category extends StatelessWidget {
@@ -9,7 +10,7 @@ class Category extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue,
+      color: Styles.primaryColor,
       margin: EdgeInsets.only(top: 10, right: 10),
       padding: EdgeInsets.all(5),
       child: Row(

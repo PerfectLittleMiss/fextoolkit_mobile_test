@@ -1,3 +1,4 @@
+import 'package:fextoolkit_mobile_test/styles.dart';
 import 'package:flutter/material.dart';
 
 class PlusButton extends StatelessWidget {
@@ -13,7 +14,7 @@ class PlusButton extends StatelessWidget {
         height: 50,
         margin: EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
-          color: Colors.blue,
+          color: Styles.primaryColor,
           borderRadius: BorderRadius.all(Radius.circular(5)),
         ),
         child: Align(
