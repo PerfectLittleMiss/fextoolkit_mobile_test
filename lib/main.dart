@@ -113,9 +113,18 @@ class _CategoriesState extends State<Categories> {
                   ),
                 ),
                 PlusButton(onTap: () {
-                  setState(() {
-                    _categories.add(_categoryController.text);
-                  });
+                  // Don't allow duplicate categories to be entered
+                  if (_categories
+                      .contains(_categoryController.text.toUpperCase())) {
+                    // Notify the user the category has already been added
+                    final snackBar = SnackBar(
+                        content: Text("That category has already been added"));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  } else {
+                    setState(() {
+                      _categories.add(_categoryController.text.toUpperCase());
+                    });
+                  }
                 }),
               ],
             ),
