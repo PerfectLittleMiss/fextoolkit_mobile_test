@@ -12,9 +12,16 @@ class Quote extends StatelessWidget {
       padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        border: Border.all(color: Styles.primaryColor),
-        borderRadius: BorderRadius.all(Radius.circular(3)),
-      ),
+          //border: Border.all(color: Styles.primaryColor),
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(3)),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 5,
+                blurRadius: 5,
+                offset: Offset(0, 2))
+          ]),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
