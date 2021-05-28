@@ -59,6 +59,7 @@ class _CategoriesState extends State<Categories> {
                       addCategory();
                       WidgetsBinding.instance?.focusManager.primaryFocus
                           ?.unfocus();
+                      _categoryController.clear();
                     }),
                   ],
                 ),
@@ -77,7 +78,7 @@ class _CategoriesState extends State<Categories> {
       final snackBar =
           SnackBar(content: Text("That category has already been added"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    } else {
+    } else if (_categoryController.text.trim().isNotEmpty) {
       setState(() {
         _categories.add(_categoryController.text.toUpperCase().trim());
 
