@@ -35,43 +35,51 @@ class _GetQuote extends State<GetQuote> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Get a Quote'),
-        backgroundColor: Styles.primaryColor,
-      ),
-      body: Container(
-        margin: EdgeInsets.only(top: 10, bottom: 30, left: 10, right: 10),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Column(
+        appBar: AppBar(
+          title: Text('Get a Quote'),
+          backgroundColor: Styles.primaryColor,
+        ),
+        body: GestureDetector(
+          onTap: () {
+            WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
+          },
+          child: Container(
+            margin: EdgeInsets.only(top: 10, bottom: 30, left: 10, right: 10),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Categories(),
-                SizedBox(height: MediaQuery.of(context).size.height * .05),
-                this.quote != "" ? Quote(this.quote, this.author) : SizedBox(),
+                Column(
+                  children: <Widget>[
+                    Categories(),
+                    SizedBox(height: MediaQuery.of(context).size.height * .05),
+                    this.quote != ""
+                        ? Quote(this.quote, this.author)
+                        : SizedBox(),
+                  ],
+                ),
+                GetQuoteButton(onTap: () async {
+                  final resp = await http.get(Uri.parse(UriHelper.getUri()));
+
+                  //print(UriHelper.getUri());
+
+                  final Map<String, dynamic> json = jsonDecode(resp.body);
+
+                  setState(() {
+                    if (json['statusCode'] == 404) {
+                      this.quote = json['statusMessage'];
+                      this.author = "Quotable";
+                    } else {
+                      this.quote = json['content'];
+                      this.author = json['author'];
+                    }
+                    WidgetsBinding.instance?.focusManager.primaryFocus
+                        ?.unfocus();
+                  });
+                }),
               ],
             ),
-            GetQuoteButton(onTap: () async {
-              final resp = await http.get(Uri.parse(UriHelper.getUri()));
-
-              //print(UriHelper.getUri());
-
-              final Map<String, dynamic> json = jsonDecode(resp.body);
-
-              setState(() {
-                if (json['statusCode'] == 404) {
-                  this.quote = json['statusMessage'];
-                  this.author = "Quotable";
-                } else {
-                  this.quote = json['content'];
-                  this.author = json['author'];
-                }
-              });
-            }),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }

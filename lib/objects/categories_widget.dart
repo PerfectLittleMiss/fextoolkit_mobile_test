@@ -24,44 +24,50 @@ class _CategoriesState extends State<Categories> {
   }
 
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Flexible(
-                  child: TextField(
-                    controller: _categoryController,
-                    decoration: InputDecoration(
-                      //labelText: "Category",
-                      fillColor: Colors.grey.withOpacity(0.3),
-                      filled: true,
-                      hintText: "ADD A CATEGORY",
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
+    return GestureDetector(
+        onTap: () {
+          WidgetsBinding.instance?.focusManager.primaryFocus?.unfocus();
+        },
+        child: Container(
+          margin: EdgeInsets.all(10),
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 50,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Flexible(
+                      child: TextField(
+                        controller: _categoryController,
+                        decoration: InputDecoration(
+                          //labelText: "Category",
+                          fillColor: Colors.grey.withOpacity(0.3),
+                          filled: true,
+                          hintText: "ADD A CATEGORY",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    PlusButton(onTap: () {
+                      addCategory();
+                      WidgetsBinding.instance?.focusManager.primaryFocus
+                          ?.unfocus();
+                    }),
+                  ],
                 ),
-                PlusButton(onTap: () {
-                  addCategory();
-                }),
-              ],
-            ),
+              ),
+              Row(children: this.categories)
+              //...this.categories,
+            ],
           ),
-          Row(children: this.categories)
-          //...this.categories,
-        ],
-      ),
-    );
+        ));
   }
 
   void addCategory() {

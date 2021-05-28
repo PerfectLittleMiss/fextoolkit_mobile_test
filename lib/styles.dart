@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class Styles {
   static final Color primaryColor = hexToColor("062091");
-  static final Color lightGrey = hexToColor("D6D6D6");
   static final MaterialColor materialColor =
       new MaterialColor(0xFF062091, colorCodes);
 
