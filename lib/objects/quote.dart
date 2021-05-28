@@ -29,7 +29,11 @@ class Quote extends StatelessWidget {
           Text(this.quote,
               style: TextStyle(fontSize: 24), textAlign: TextAlign.center),
           SizedBox(height: 30),
-          Text("- ${this.author}"),
+          Text(
+            "- ${this.author}",
+            style: TextStyle(fontSize: 20),
+            textAlign: TextAlign.left,
+          ),
         ],
       ),
     );
