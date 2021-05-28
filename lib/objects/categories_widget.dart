@@ -45,14 +45,15 @@ class _CategoriesState extends State<Categories> {
                       child: TextField(
                         controller: _categoryController,
                         decoration: InputDecoration(
-                          //labelText: "Category",
-                          fillColor: Colors.grey.withOpacity(0.3),
-                          filled: true,
-                          hintText: "ADD A CATEGORY",
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                        ),
+                            //labelText: "Category",
+                            fillColor: Colors.grey.withOpacity(0.4),
+                            filled: true,
+                            hintText: "ADD A CATEGORY",
+                            border: InputBorder.none
+                            //border: OutlineInputBorder(
+                            //borderSide: BorderSide(color: Colors.grey),
+                            //),
+                            ),
                       ),
                     ),
                     PlusButton(onTap: () {
