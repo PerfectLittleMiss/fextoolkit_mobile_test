@@ -1,3 +1,4 @@
+import 'package:fextoolkit_mobile_test/styles.dart';
 import 'package:flutter/material.dart';
 
 import '../uri_helper.dart';
@@ -40,7 +41,10 @@ class _CategoriesState extends State<Categories> {
                   child: TextField(
                     controller: _categoryController,
                     decoration: InputDecoration(
-                      labelText: "Category",
+                      //labelText: "Category",
+                      fillColor: Colors.grey.withOpacity(0.3),
+                      filled: true,
+                      hintText: "ADD A CATEGORY",
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),
                       ),
